@@ -21,7 +21,7 @@ Date::Date(int year, int month, int day)
 		print();
 	}
 }
-void Date::print()
+void Date::print() const
 {
 	cout << _year << "/" << _month << "/" << _day<<"\n";
 }
@@ -45,14 +45,14 @@ Date& Date::operator+=(int day)
 
 	return *this;
 }
-Date Date::operator+(int day)
+Date Date::operator+(int day)const
 {
-	Date tmp = *this;
-	tmp += day;
-	/*tmp._day += day;
-	while (tmp._day > GetMonthDay(tmp._year, tmp._month,tmp._day))
+	Date tmp = *this;//触发拷贝构造
+	tmp += day;//运算符重载
+	//tmp._day += day;
+	/*while (tmp._day > GetMonthDay(tmp._year, tmp._month))
 	{
-		tmp._day -= GetMonthDay(tmp._year, tmp._month,tmp._day);
+		tmp._day -= GetMonthDay(tmp._year, tmp._month);
 		++tmp._month;
 		if (tmp._month == 13)
 		{
@@ -86,7 +86,7 @@ Date& Date::operator-=(int day)
 	return *this;
 }
 
-Date Date::operator-(int day)
+Date Date::operator-(int day)const
 {
 	Date tmp = *this;
 	tmp -= day;
@@ -103,7 +103,7 @@ Date Date::operator-(int day)
 	}*/
 	return tmp;
 }
-bool Date::operator<(const Date & d)
+bool Date::operator<(const Date & d)const
 {
 	if (_year < d._year)
 	{
@@ -122,26 +122,26 @@ bool Date::operator<(const Date & d)
 	}
 	return false;
 }
-bool Date::operator<=(const Date& d)
+bool Date::operator<=(const Date& d)const
 {
 	return *this < d || *this == d;
 }
-bool Date::operator>(const Date& d)
+bool Date::operator>(const Date& d)const
 {
 	return !(*this <= d) ;
 }
-bool Date::operator>=(const Date& d)
+bool Date::operator>=(const Date& d)const
 {
 	return !(*this < d);
 }
-bool Date::operator==(const Date& d)
+bool Date::operator==(const Date& d)const
 {
 	return _year == d._year
 		&& _month == d._month
 		&& _day == d._day;
 
 }
-bool Date::operator!=(const Date& d)
+bool Date::operator!=(const Date& d)const
 {
 	return !(*this == d);
 }
@@ -158,7 +158,7 @@ Date& Date::operator++()
 	*this += 1;
 	return *this;
 }
-int  Date::operator-(const Date& d)
+int  Date::operator-(const Date& d)const
 {
 	int flag = 1;
 	Date max = *this;

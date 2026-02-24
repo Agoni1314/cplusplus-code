@@ -11,7 +11,7 @@ class Date
 public:
 	bool checkDate();
 	Date(int year = 2000, int month = 1, int day = 1);
-	void print();
+	void print()const;
 
 	//默认是inline
 	int GetMonthDay(int year, int month)
@@ -30,23 +30,23 @@ public:
 		}
 	}
 
-	bool operator<(const Date& d);
-	bool operator<=(const Date& d);
-	bool operator>(const Date& d);
-	bool operator>=(const Date& d);
-	bool operator==(const Date& d);
-	bool operator!=(const Date& d);
+	bool operator<(const Date& d)const;
+	bool operator<=(const Date& d)const;
+	bool operator>(const Date& d)const;
+	bool operator>=(const Date& d)const;
+	bool operator==(const Date& d)const;
+	bool operator!=(const Date& d)const;
 	
 
 	Date& operator+=(int day);
-	Date operator+(int day);
+	Date operator+(int day)const;
 	Date& operator-=(int day);
-	Date operator-(int day);
+	Date operator-(int day)const;
 	//d1++
 	Date operator++(int);
 	//++d1
 	Date& operator++();
-	int  operator-(const Date& d);
+	int  operator-(const Date& d)const;
 	
 	//void operator<<(ostream& out);
 private:
