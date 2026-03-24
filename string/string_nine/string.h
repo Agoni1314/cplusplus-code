@@ -1,0 +1,133 @@
+#define _CRT_SECURE_NO_WARNINGS
+#pragma once
+#include<iostream>
+#include<assert.h>
+#include<string>
+using namespace std;
+namespace box
+{
+	class string
+	{
+	public:
+
+		typedef char* iterator;//自己写的string类不支持标准string类的迭代器，要自己实现一个
+		typedef const char* const_iterator;//底层是数组才能使用原生指针做迭代器
+		iterator begin()
+		{
+			return _str;
+		}
+		iterator end()
+		{
+			return _str + _size;
+		}
+		/*string()
+			:_str (new char[1]{'\0'})
+			,_size(0)
+			,_capacity(0)
+		{ }*/
+		string(const char* str = "")
+		{
+			_size = strlen(str);//不包括\0
+			_capacity = _size;
+			_str = new char[_capacity + 1];
+			strcpy(_str, str);
+		}
+		//深拷贝
+		void swap(string& s)
+		{
+			//现代写法
+			std::swap(_str, s._str);
+			std::swap(_size, s._size);
+			std::swap(_capacity, s._capacity);
+		}
+		string(const string& s)
+		{//传统写法
+			//_str = new char[s._capacity + 1];//开空间要多开一个，因为不包括\0
+			//strcpy(_str, s._str);
+			//_size = s._size;
+			//_capacity = s._capacity;
+			string tmp(s._str);
+			swap(tmp);
+			
+		}
+		~string()
+		{
+			delete[] _str;
+			_str = nullptr;
+			_capacity = _size = 0;
+		}
+		void clear()
+		{
+			_str[0] = '\0';
+			_size = 0;//clear只清空数据，不清空间
+		}
+		string& operator=(const string& s2)
+		{
+			if (this != &s2)
+			{
+				/*delete[] _str;
+				_str = new char[s2._capacity + 1];
+				strcpy(_str, s2._str);
+				_size = s2._size;
+				_capacity = s2._capacity;*/
+				string tmp(s2._str);
+				swap(tmp);
+			}
+			return *this;
+		}
+		const char* c_str()
+		{
+			return _str;
+		}
+		const char* c_str()const
+		{
+			return _str;
+		}
+		size_t size() const
+		{
+			return _size;
+		}
+		size_t capacity()const
+		{
+			return _capacity;
+		}
+		char& operator[](size_t pos)
+		{
+			assert(pos < _size);
+			return _str[pos];
+		}
+		const char& operator[](size_t pos) const
+		{
+			assert(pos < _size);
+			return _str[pos];
+		}
+		void reserve(size_t n);
+		void push_back(char ch);
+		string& operator+=(char ch);
+		string& operator+=(const char* str);
+		void append(const char* str);
+		void insert(size_t pos, char ch);
+		void insert(size_t pos, const char* ch);
+		void erase(size_t pos, size_t len = npos);//缺省参数只能在声明的时候给
+		size_t find(char ch, size_t pos = 0);
+		size_t find(const char* ch, size_t pos = 0);
+		string substr(size_t pos, size_t len = 0);
+
+	private:
+		char* _str;
+		size_t _size=0;
+		size_t _capacity=0;
+		static const  size_t npos;
+	};
+	void test1();
+	void test2();
+	bool operator<(const string& s1, const string& s2);
+	bool operator<=(const string& s1, const string& s2);
+	bool operator>(const string& s1, const string& s2);
+	bool operator>=(const string& s1, const string& s2);
+	bool operator==(const string& s1, const string& s2);
+	bool operator!=(const string& s1, const string& s2);
+	ostream& operator<<(ostream& out, string& t);
+	istream& operator>>(istream& in, string& s);
+
+}
