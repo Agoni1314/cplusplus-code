@@ -1,0 +1,6 @@
+﻿  test.cpp
+H:\vs文件\Project1\Project1\test.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+H:\vs文件\Project1\Project1\Date.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“test.cpp”)
+  
+  Project1.vcxproj -> H:\vs文件\Project1\x64\Debug\Date_class and objects.exe
